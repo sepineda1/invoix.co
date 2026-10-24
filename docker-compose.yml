@@ -29,7 +29,6 @@ x-php: &php
     CACHE_STORE: redis
     SESSION_DRIVER: database
     BROADCAST_CONNECTION: log
-    MAIL_MAILER: log
     FILESYSTEM_DISK: local
     CHROMIUM_PATH: /usr/bin/chromium
     COMPOSER_PROCESS_TIMEOUT: "0"
