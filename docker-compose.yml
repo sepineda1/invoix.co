@@ -1,0 +1,138 @@
+name: nubicta
+
+x-php: &php
+  build:
+    context: .
+    dockerfile: docker/php/Dockerfile
+  image: nubicta-app
+  volumes:
+    - .:/var/www/html
+    - vendor_data:/var/www/html/vendor
+  environment:
+    APP_NAME: "OYARCEGROUP INC"
+    APP_ENV: local
+    APP_DEBUG: "true"
+    APP_URL: http://localhost:${NUBICTA_APP_PORT:-8090}
+    APP_TIMEZONE: America/Bogota
+    LOG_CHANNEL: stderr
+    DB_CONNECTION: mysql
+    DB_HOST: mysql
+    DB_PORT: "3306"
+    DB_DATABASE: ${NUBICTA_DB_DATABASE:-nubicta}
+    DB_USERNAME: ${NUBICTA_DB_USERNAME:-nubicta}
+    DB_PASSWORD: ${NUBICTA_DB_PASSWORD:-secret}
+    REDIS_CLIENT: phpredis
+    REDIS_HOST: redis
+    REDIS_PASSWORD: "null"
+    REDIS_PORT: "6379"
+    QUEUE_CONNECTION: redis
+    CACHE_STORE: redis
+    SESSION_DRIVER: database
+    BROADCAST_CONNECTION: log
+    MAIL_MAILER: log
+    FILESYSTEM_DISK: local
+    CHROMIUM_PATH: /usr/bin/chromium
+    COMPOSER_PROCESS_TIMEOUT: "0"
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${NUBICTA_DB_ROOT_PASSWORD:-rootsecret}
+      MYSQL_DATABASE: ${NUBICTA_DB_DATABASE:-nubicta}
+      MYSQL_USER: ${NUBICTA_DB_USERNAME:-nubicta}
+      MYSQL_PASSWORD: ${NUBICTA_DB_PASSWORD:-secret}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "${NUBICTA_DB_PORT:-3310}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${NUBICTA_DB_ROOT_PASSWORD:-rootsecret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${NUBICTA_REDIS_PORT:-6380}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  init:
+    <<: *php
+    command: php artisan migrate --force --seed
+    restart: "no"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  app:
+    <<: *php
+    command: php-fpm
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${NUBICTA_APP_PORT:-8090}:80"
+    volumes:
+      - .:/var/www/html:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+
+  horizon:
+    <<: *php
+    command: php artisan horizon
+    restart: unless-stopped
+    stop_grace_period: 40s
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  scheduler:
+    <<: *php
+    command: php artisan schedule:work
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  vite:
+    image: node:22-bookworm
+    working_dir: /var/www/html
+    restart: unless-stopped
+    environment:
+      VITE_USE_POLLING: "true"
+      VITE_DEV_ORIGIN: http://localhost:${NUBICTA_VITE_PORT:-5173}
+    ports:
+      - "${NUBICTA_VITE_PORT:-5173}:5173"
+    volumes:
+      - .:/var/www/html
+      - vite_node_modules:/var/www/html/node_modules
+    command: ["sh", "docker/node/dev.sh"]
+
+volumes:
+  mysql_data:
+  redis_data:
+  vite_node_modules:
+  vendor_data:

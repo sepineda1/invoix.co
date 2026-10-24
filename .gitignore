@@ -20,6 +20,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/framework/.docker-setup.lock
 /vendor
 _ide_helper.php
 Homestead.json

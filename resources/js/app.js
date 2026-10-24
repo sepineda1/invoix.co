@@ -13,7 +13,7 @@ for (const key of Object.keys(localStorage)) {
 }
 
 createInertiaApp({
-    title: (title) => (title ? `${title} - Nubicta` : 'Nubicta'),
+    title: (title) => (title ? `${title} - OYARCEGROUP INC` : 'OYARCEGROUP INC'),
     resolve: (name) => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
         const page = pages[`./Pages/${name}.vue`];

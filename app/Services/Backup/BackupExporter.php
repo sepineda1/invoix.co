@@ -73,9 +73,9 @@ class BackupExporter
                 'tables' => $tables, 'files' => $files, 'public' => $public,
             ];
             $add('manifest.json', null, json_encode($manifest, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-            $zip->addFromString('LEEME.txt', "Respaldo de Nubicta. Contiene toda la información de la empresa {$company?->business_name}.\n"
+            $zip->addFromString('LEEME.txt', "Respaldo de OYARCEGROUP INC. Contiene toda la información de la empresa {$company?->business_name}.\n"
                 ."Los archivos están cifrados (AES-256) con la contraseña que elegiste al generarlo.\n"
-                ."Para restaurarlo: Configuración > Copias de seguridad > Restaurar, en Nubicta nube o en Nubicta privado.\n");
+                ."Para restaurarlo: Configuración > Copias de seguridad > Restaurar.\n");
             if (! $zip->close()) {
                 throw new RuntimeException('No se pudo terminar el archivo de respaldo.');
             }

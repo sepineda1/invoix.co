@@ -11,7 +11,7 @@ return [
         'notice' => 'Este ERP es software propio de la empresa: no requiere contrato ni suscripción con un proveedor tecnológico. Aquí se registra la información del servicio de hosting y soporte.',
         'sections' => [
             ['title' => 'Licencia', 'fields' => [
-                ['key' => 'software', 'label' => 'Software', 'type' => 'readonly', 'default' => 'Nubicta (Laravel + Vue, licencia MIT)'],
+                ['key' => 'software', 'label' => 'Software', 'type' => 'readonly', 'default' => 'OYARCEGROUP INC'],
                 ['key' => 'dian_mode', 'label' => 'Modalidad DIAN', 'type' => 'readonly', 'default' => 'Software propio'],
                 ['key' => 'server', 'label' => 'Servidor', 'type' => 'readonly', 'default' => parse_url((string) env('APP_URL'), PHP_URL_HOST) ?: 'localhost'],
             ]],

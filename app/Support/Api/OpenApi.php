@@ -33,10 +33,10 @@ final class OpenApi
         return [
             'openapi' => '3.0.3',
             'info' => [
-                'title' => 'API de Nubicta',
+                'title' => 'API de OYARCEGROUP INC',
                 'version' => '1.0',
                 'description' => $this->intro(),
-                'contact' => ['name' => 'Nubicta', 'url' => 'https://nubicta.online'],
+                'contact' => ['name' => 'OYARCEGROUP INC', 'url' => 'https://intranet.oyarcegroup.com'],
                 'license' => ['name' => 'MIT', 'url' => 'https://opensource.org/licenses/MIT'],
             ],
             'servers' => [['url' => rtrim($server, '/'), 'description' => 'URL base de tu instalación']],
@@ -69,11 +69,11 @@ final class OpenApi
         $nd = collect(CorrectionConcepts::ND)->map(fn ($v, $k) => "| `$k` | $v |")->implode("\n");
 
         return <<<MD
-Conecta tu tienda en línea, punto de venta, CRM u otra plataforma con tu empresa en Nubicta. La API trabaja solo con los datos de tu propia empresa, que siempre son tuyos, y aplica las mismas reglas contables y tributarias que la aplicación: lo que creas por API queda igual que si lo hubieras hecho en pantalla (contabilidad, inventario, cartera y envío a la DIAN).
+Conecta tu tienda en línea, punto de venta, CRM u otra plataforma con tu empresa en OYARCEGROUP INC. La API trabaja solo con los datos de tu propia empresa, que siempre son tuyos, y aplica las mismas reglas contables y tributarias que la aplicación: lo que creas por API queda igual que si lo hubieras hecho en pantalla (contabilidad, inventario, cartera y envío a la DIAN).
 
 # Autenticación
 
-1. En Nubicta entra a **Configuración > Credenciales de integración a plataformas digitales (API)**.
+1. En OYARCEGROUP INC entra a **Configuración > Credenciales de integración a plataformas digitales (API)**.
 2. Activa **Habilitar API** y elige los permisos: *Solo lectura* (solo `GET`) o *Lectura y escritura*.
 3. Si quieres, escribe las IP permitidas separadas por coma. Vacío permite cualquier origen.
 4. Pulsa **Generar nueva llave**. Se muestra una sola vez; al generar otra la anterior deja de funcionar.
@@ -86,7 +86,7 @@ Authorization: Bearer TU_LLAVE
 Accept: application/json
 ```
 
-La llave actúa con los permisos del usuario que la generó (por ejemplo, para crear facturas el usuario necesita el permiso de ventas). Nubicta guarda solo la huella SHA-256 de la llave.
+La llave actúa con los permisos del usuario que la generó (por ejemplo, para crear facturas el usuario necesita el permiso de ventas). OYARCEGROUP INC guarda solo la huella SHA-256 de la llave.
 
 **Límite:** 120 peticiones por minuto por llave; si lo superas recibes `429` y la cabecera `Retry-After`.
 
@@ -107,7 +107,7 @@ Para sincronizar solo lo nuevo usa `creado_desde` o `actualizado_desde` (fecha u
 | Código | Significado |
 |---|---|
 | `401` | Falta la llave, es inválida o fue revocada. |
-| `402` | La suscripción de la empresa venció (Nubicta en la nube). |
+| `402` | La suscripción de la empresa venció (OYARCEGROUP INC en la nube). |
 | `403` | API deshabilitada, IP no permitida, llave de solo lectura o el usuario no tiene el permiso. |
 | `404` | El registro no existe en tu empresa. |
 | `409` | La operación no se puede hacer por el estado del documento (por ejemplo, la DIAN ya lo aceptó o tiene pagos). |
@@ -126,7 +126,7 @@ Para sincronizar solo lo nuevo usa `creado_desde` o `actualizado_desde` (fecha u
 1. Consulta una vez los catálogos que vas a usar: `GET /tipos-documento?tipo=FV`, `GET /formas-pago?tipo_documento=FV`, `GET /impuestos`, `GET /bodegas`.
 2. Busca al cliente con `GET /terceros?identificacion=900555123`; si no existe créalo con `POST /terceros`.
 3. Crea la factura con `POST /facturas`. Puedes referenciar cliente y productos por id o por identificación y código. Si no envías `precio` se usa el de la lista de precios del cliente, y si no envías `impuesto_id` el IVA del producto.
-4. Si el tipo de documento es electrónico, Nubicta la envía a la DIAN de inmediato (desactívalo con `"enviar_dian": false`) y la respuesta trae el resultado en `dian`. Consulta el estado y los errores con `GET /facturas/{id}/dian`.
+4. Si el tipo de documento es electrónico, OYARCEGROUP INC la envía a la DIAN de inmediato (desactívalo con `"enviar_dian": false`) y la respuesta trae el resultado en `dian`. Consulta el estado y los errores con `GET /facturas/{id}/dian`.
 5. Descarga el PDF (`GET /facturas/{id}/pdf`) o el XML (`GET /facturas/{id}/xml`), o envíala por correo con `POST /facturas/{id}/correo`.
 6. Cuando el cliente pague, registra el recibo con `POST /recibos-caja`.
 
@@ -144,9 +144,9 @@ $nd
 
 # Equivalencias con la API de Siigo
 
-Si vienes de la API de Siigo, estas son las rutas equivalentes. En Nubicta no hace falta pedir un token temporal: la llave se envía directamente en cada petición.
+Si vienes de la API de Siigo, estas son las rutas equivalentes. En OYARCEGROUP INC no hace falta pedir un token temporal: la llave se envía directamente en cada petición.
 
-| Siigo | Nubicta |
+| Siigo | OYARCEGROUP INC |
 |---|---|
 | `GET/POST /v1/products`, `GET/PUT/DELETE /v1/products/{id}` | `GET/POST /productos`, `GET/PUT/DELETE /productos/{id}` |
 | `GET/POST /v1/customers`, `GET/PUT/DELETE /v1/customers/{id}` | `GET/POST /terceros`, `GET/PUT/DELETE /terceros/{id}` |
@@ -167,11 +167,11 @@ Si vienes de la API de Siigo, estas son las rutas equivalentes. En Nubicta no ha
 | `POST /v1/test-balance-report` | `GET /reportes/balance-prueba` |
 | `POST /v1/test-balance-report-by-thirdparty` | `GET /reportes/balance-prueba-terceros` |
 | `GET /v1/accounts-payable` | `GET /cuentas-por-pagar` (y `GET /cuentas-por-cobrar`) |
-| Webhooks de productos e inventario | `POST /webhooks` con los eventos de Nubicta |
+| Webhooks de productos e inventario | `POST /webhooks` con los eventos de OYARCEGROUP INC |
 
 # Webhooks: verificar la firma
 
-Cada envío es un `POST` JSON con las cabeceras `X-Nubicta-Evento` y `X-Nubicta-Firma: sha256=<hmac>`, donde el HMAC-SHA256 se calcula sobre el cuerpo exacto con el `secreto` que recibiste al crear el webhook. Responde `2xx` en menos de 10 segundos; si falla, Nubicta reintenta hasta 5 veces y desactiva el webhook tras 50 fallas seguidas.
+Cada envío es un `POST` JSON con las cabeceras `X-Oyarcegroup-Evento` y `X-Oyarcegroup-Firma: sha256=<hmac>`, donde el HMAC-SHA256 se calcula sobre el cuerpo exacto con el `secreto` que recibiste al crear el webhook. Responde `2xx` en menos de 10 segundos; si falla, OYARCEGROUP INC reintenta hasta 5 veces y desactiva el webhook tras 50 fallas seguidas.
 
 ```php
 \$body = file_get_contents('php://input');
@@ -186,7 +186,7 @@ if (! hash_equals(\$firma, \$_SERVER['HTTP_X_NUBICTA_FIRMA'] ?? '')) {
 ```javascript
 const crypto = require('crypto');
 const firma = 'sha256=' + crypto.createHmac('sha256', process.env.NUBICTA_SECRETO).update(rawBody).digest('hex');
-const valida = crypto.timingSafeEqual(Buffer.from(firma), Buffer.from(req.get('X-Nubicta-Firma') || ''));
+const valida = crypto.timingSafeEqual(Buffer.from(firma), Buffer.from(req.get('X-Oyarcegroup-Firma') || ''));
 ```
 MD;
     }
@@ -208,7 +208,7 @@ MD;
             ['name' => 'Recibos de pago', 'description' => 'Pagos a proveedores o egresos (RP): abonos a compras, anticipos, otros pagos o modo avanzado con líneas contables.'],
             ['name' => 'Comprobantes contables', 'description' => 'Comprobantes contables (CC) con débitos y créditos; permiten cruzar cartera, crear vencimientos y mover inventario.'],
             ['name' => 'Reportes', 'description' => 'Balance de prueba general y por tercero, cartera por cobrar y cuentas por pagar.'],
-            ['name' => 'Webhooks', 'description' => 'Recibe en tu servidor un POST firmado cada vez que ocurre un evento en Nubicta.'],
+            ['name' => 'Webhooks', 'description' => 'Recibe en tu servidor un POST firmado cada vez que ocurre un evento en OYARCEGROUP INC.'],
         ];
     }
 
@@ -551,12 +551,12 @@ MD;
         $this->paths['/webhooks']['post']['callbacks'] = ['evento' => ['{$request.body#/url}' => ['post' => [
             'summary' => 'Envío de un evento a tu URL',
             'parameters' => [
-                ['name' => 'X-Nubicta-Evento', 'in' => 'header', 'required' => true, 'schema' => ['type' => 'string', 'example' => 'factura.creada']],
-                ['name' => 'X-Nubicta-Firma', 'in' => 'header', 'required' => true, 'description' => 'sha256=HMAC-SHA256 del cuerpo con el secreto del webhook.', 'schema' => ['type' => 'string']],
+                ['name' => 'X-Oyarcegroup-Evento', 'in' => 'header', 'required' => true, 'schema' => ['type' => 'string', 'example' => 'factura.creada']],
+                ['name' => 'X-Oyarcegroup-Firma', 'in' => 'header', 'required' => true, 'description' => 'sha256=HMAC-SHA256 del cuerpo con el secreto del webhook.', 'schema' => ['type' => 'string']],
             ],
             'requestBody' => $this->body('EventoWebhook', ['evento' => 'existencias.actualizadas', 'id' => '0f5f1c1e-8f3a-4f0e-9b7e-2d6c9a1b4e55', 'fecha' => '2026-10-20T09:15:02-05:00',
                 'data' => ['bodega_id' => 1, 'cantidad' => 41, 'producto' => ['id' => 15, 'codigo' => 'CAF-500', 'nombre' => 'Café molido 500 g', 'existencias' => 41]]]),
-            'responses' => ['200' => ['description' => 'Responde 2xx para confirmar la recepción.'], '4XX' => ['description' => 'Nubicta reintenta el envío más tarde.']],
+            'responses' => ['200' => ['description' => 'Responde 2xx para confirmar la recepción.'], '4XX' => ['description' => 'OYARCEGROUP INC reintenta el envío más tarde.']],
         ]]]];
     }
 
@@ -735,7 +735,7 @@ MD;
             'VentaEntrada' => ['type' => 'object', 'required' => ['fecha', 'items'], 'properties' => $sale],
             'NotaEntrada' => ['type' => 'object', 'required' => ['fecha', 'items', 'motivo'], 'properties' => [
                 'factura_id' => $s('integer', 'Factura de este sistema. Excluyente con factura_externa.', 1201), 'factura' => $s('string', 'Alternativa: número de la factura.', 'FV-1-1201'),
-                'factura_externa' => ['type' => 'object', 'description' => 'Factura que no está en Nubicta. Excluyente con factura_id. Solo nota crédito.', 'properties' => [
+                'factura_externa' => ['type' => 'object', 'description' => 'Factura que no está en OYARCEGROUP INC. Excluyente con factura_id. Solo nota crédito.', 'properties' => [
                     'numero' => $s('string', '', 'FE123'), 'cufe' => $s('string', '', 'a1b2c3d4e5f6'), 'fecha' => $s('string', '', '2026-10-01', ['format' => 'date']),
                 ]],
                 'motivo' => $s('string', 'Código del motivo DIAN (ver la tabla de motivos).', '1'),

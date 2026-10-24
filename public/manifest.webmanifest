@@ -1,15 +1,14 @@
 {
-    "name": "Nubicta",
-    "short_name": "Nubicta",
-    "description": "ERP contable libre para Colombia",
+    "name": "OYARCEGROUP INC",
+    "short_name": "OYARCEGROUP",
+    "description": "ERP de OYARCEGROUP INC",
     "lang": "es-CO",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#0284c7",
     "icons": [
-        { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "/brand/nubicta-icon-512.png", "sizes": "512x512", "type": "image/png" },
-        { "src": "/brand/nubicta-icon.svg", "sizes": "any", "type": "image/svg+xml" }
+        { "src": "/brand/favicon.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/brand/oyarcegroup.png", "sizes": "512x512", "type": "image/png" }
     ]
 }

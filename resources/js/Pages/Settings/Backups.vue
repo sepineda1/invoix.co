@@ -43,7 +43,7 @@ async function remove(b) {
             <h2 class="text-[15px] font-bold">Descargar una copia</h2>
             <p class="mt-1">
                 Incluye toda la información de la empresa: terceros, productos, documentos, contabilidad, nómina, configuración, usuarios y archivos
-                (certificado digital, XML y adjuntos). Sirve para guardarla por tu cuenta o pasarte entre Nubicta nube y Nubicta privado.
+                (certificado digital, XML y adjuntos). Sirve para guardarla por tu cuenta o llevarla a otro servidor.
             </p>
             <p class="mt-2 text-[12px] text-muted">El archivo queda cifrado con la contraseña que pongas aquí; sin ella no se puede abrir ni restaurar. Guárdala bien.</p>
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
@@ -65,7 +65,7 @@ async function remove(b) {
             <p v-if="restore.errors.file" class="s-error">{{ restore.errors.file }}</p>
             <div class="mt-2 grid gap-2 sm:grid-cols-2">
                 <input v-model="restore.password" type="password" autocomplete="off" placeholder="Contraseña del respaldo" class="s-input h-[32px]" />
-                <input v-model="restore.my_password" type="password" autocomplete="current-password" placeholder="Tu contraseña de Nubicta" class="s-input h-[32px]" />
+                <input v-model="restore.my_password" type="password" autocomplete="current-password" placeholder="Tu contraseña" class="s-input h-[32px]" />
             </div>
             <p v-if="restore.errors.password" class="s-error">{{ restore.errors.password }}</p>
             <p v-if="restore.errors.my_password" class="s-error">{{ restore.errors.my_password }}</p>

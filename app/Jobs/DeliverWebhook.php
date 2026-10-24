@@ -58,9 +58,9 @@ class DeliverWebhook implements ShouldBeUnique, ShouldQueue
 
         try {
             $response = Http::timeout(10)->withOptions(['allow_redirects' => false])->withBody($body, 'application/json')->withHeaders([
-                'User-Agent' => 'Nubicta-Webhooks/1.0',
-                'X-Nubicta-Evento' => $this->event,
-                'X-Nubicta-Firma' => 'sha256='.hash_hmac('sha256', $body, $hook->secret),
+                'User-Agent' => 'Oyarcegroup-Webhooks/1.0',
+                'X-Oyarcegroup-Evento' => $this->event,
+                'X-Oyarcegroup-Firma' => 'sha256='.hash_hmac('sha256', $body, $hook->secret),
             ])->post($hook->url);
             $ok = $response->successful();
             $hook->forceFill([
@@ -84,7 +84,7 @@ class DeliverWebhook implements ShouldBeUnique, ShouldQueue
     private function payload(): array
     {
         if ($this->model === 'prueba') {
-            return ['mensaje' => 'Evento de prueba desde Nubicta.'];
+            return ['mensaje' => 'Evento de prueba desde OYARCEGROUP INC.'];
         }
         $m = $this->model::query()->find($this->id);
         if (! $m) {

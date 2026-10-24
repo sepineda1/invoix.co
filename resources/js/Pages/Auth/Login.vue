@@ -15,13 +15,12 @@ function submit() {
     <div class="flex min-h-screen">
         <div class="hidden w-1/2 items-center justify-center bg-primary lg:flex">
             <div class="max-w-[420px] px-10 text-white">
-                <img src="/brand/nubicta-logo-blanco.svg" alt="Nubicta" class="mb-10 w-[300px]" />
+                <img src="/brand/oyarcegroup.png" alt="OYARCEGROUP INC" class="mb-8 w-[340px]" />
                 <p class="text-[40px] font-extrabold leading-tight">Tu facturación electrónica, contabilidad y nómina</p>
-                <p class="mt-4 text-[16px] opacity-90">Gratis, de código abierto y con tus datos siempre bajo tu control.</p>
             </div>
         </div>
         <div class="flex w-full flex-col items-center justify-center bg-[#f3f6f9] lg:w-1/2">
-            <img src="/brand/nubicta-logo.svg" alt="Nubicta" class="mb-6 w-[240px] lg:hidden" />
+            <img src="/brand/oyarcegroup-dark.png" alt="OYARCEGROUP INC" class="mb-6 w-[260px] lg:hidden" />
             <form class="s-card w-[390px] max-w-[calc(100vw-24px)] px-[30px] py-[28px] shadow-[0_2px_10px_rgba(0,0,0,.08)]" @submit.prevent="submit">
                 <h1 class="text-[22px] font-bold text-[#34495e]">Inicio de sesión</h1>
                 <p class="mb-[22px] mt-1 text-[13px] text-[#34495e]">Ingresa con tu usuario de la empresa</p>

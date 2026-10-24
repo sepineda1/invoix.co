@@ -4,6 +4,18 @@ import { bunny } from 'laravel-vite-plugin/fonts';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 
+const inDocker = process.env.VITE_USE_POLLING === 'true';
+const dockerServer = inDocker
+    ? {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        origin: process.env.VITE_DEV_ORIGIN || 'http://localhost:5173',
+        cors: true,
+        hmr: { host: 'localhost' },
+    }
+    : {};
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -23,8 +35,10 @@ export default defineConfig({
         tailwindcss(),
     ],
     server: {
+        ...dockerServer,
         watch: {
             ignored: ['**/storage/framework/views/**'],
+            usePolling: inDocker,
         },
     },
 });

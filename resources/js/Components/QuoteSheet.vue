@@ -10,7 +10,7 @@ const nit = (id, dv) => (id ? dots(id) + (dv !== null && dv !== undefined && dv 
 const title = { CT: 'Cotización', RM: 'Remisión' }[d.type] ?? d.type_name;
 const sum = (rows) => (rows ?? []).reduce((a, t) => a + Number(t.value || 0), 0);
 const subtotal = Math.round((Number(d.totals.total) - sum(d.tax_lines) + sum(d.retentions)) * 100) / 100;
-const maker = d.source === 'siigo' ? 'Elaborado por Siigo S.A.S Nit: 830.048.145-8' : `Elaborado por ${c.name ?? ''} con Nubicta`;
+const maker = d.source === 'siigo' ? 'Elaborado por Siigo S.A.S Nit: 830.048.145-8' : `Elaborado por ${c.name ?? ''} con OYARCEGROUP INC`;
 </script>
 
 <template>

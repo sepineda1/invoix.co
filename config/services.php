@@ -36,6 +36,8 @@ return [
         'auto_sync' => (bool) env('SIIGO_AUTO_SYNC', false),
     ],
 
+    'chromium' => env('CHROMIUM_PATH', '/usr/bin/chromium'),
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

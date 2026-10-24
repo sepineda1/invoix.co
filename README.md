@@ -77,6 +77,30 @@ php artisan horizon             # colas: envíos a la DIAN, correos, importacion
 php artisan schedule:work       # facturas recurrentes y gestión de cobro (o un cron con schedule:run)
 ```
 
+### Con Docker
+
+Hace falta Docker Desktop (o Docker Engine con Compose v2). Desde la raíz del proyecto:
+
+```bash
+docker compose up --build
+```
+
+La primera vez construye PHP 8.3 (con soap, intl, gd, zip, redis y Chromium), instala Composer y Node, crea MySQL y corre las migraciones con el seeder. La aplicación queda en [http://localhost:8090](http://localhost:8090). Vite sirve los assets en el puerto 5173.
+
+La contraseña del administrador se imprime una sola vez, en el servicio `init`:
+
+```bash
+docker compose logs init
+```
+
+El usuario es `admin@example.com`, salvo que `ERP_ADMIN_EMAIL` diga otra cosa. MySQL queda publicado en el puerto 3310 (`nubicta` / `secret`) y Redis en el 6380, para no chocar con un MySQL o Redis que ya esté en la máquina. Horizon y el scheduler arrancan solos.
+
+Las dependencias de PHP quedan en un volumen de Docker (`vendor_data`), no en la carpeta del proyecto: en Windows el disco del host hace que Composer se agote. Para copiarlas al editor: `docker compose cp app:/var/www/html/vendor ./vendor`.
+
+Para parar: `docker compose down`. Los datos de MySQL se conservan. `docker compose down -v` los borra.
+
+Puertos y clave de la base se pueden cambiar con `NUBICTA_APP_PORT`, `NUBICTA_DB_PORT`, `NUBICTA_DB_PASSWORD`, `NUBICTA_DB_DATABASE` y `NUBICTA_VITE_PORT` antes de `docker compose up`. Este compose es para desarrollo local.
+
 En producción, sirve `public/` con Nginx y PHP-FPM, y deja `horizon` corriendo con Supervisor. El script [`deploy/after_deploy.sh`](deploy/after_deploy.sh) muestra los pasos de un despliegue.
 
 ### Primeros pasos
