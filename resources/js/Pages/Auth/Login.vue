@@ -15,12 +15,12 @@ function submit() {
     <div class="flex min-h-screen">
         <div class="hidden w-1/2 items-center justify-center bg-primary lg:flex">
             <div class="max-w-[420px] px-10 text-white">
-                <img src="/brand/invoix.png" alt="invoix.co" class="mb-8 w-[340px] rounded-[10px] bg-white px-5 py-4" />
+                <img src="/brand/logo.png" alt="invoix.co" class="mb-8 h-[92px] w-auto rounded-[10px] bg-white px-5 py-4" />
                 <p class="text-[40px] font-extrabold leading-tight">Tu facturación electrónica, contabilidad y nómina</p>
             </div>
         </div>
         <div class="flex w-full flex-col items-center justify-center bg-[#f3f6f9] lg:w-1/2">
-            <img src="/brand/invoix.png" alt="invoix.co" class="mb-6 w-[260px] lg:hidden" />
+            <img src="/brand/logo.png" alt="invoix.co" class="mb-6 h-[72px] w-auto lg:hidden" />
             <form class="s-card w-[390px] max-w-[calc(100vw-24px)] px-[30px] py-[28px] shadow-[0_2px_10px_rgba(0,0,0,.08)]" @submit.prevent="submit">
                 <h1 class="text-[22px] font-bold text-[#34495e]">Inicio de sesión</h1>
                 <p class="mb-[22px] mt-1 text-[13px] text-[#34495e]">Ingresa con tu usuario de la empresa</p>

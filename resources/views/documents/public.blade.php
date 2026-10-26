@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>{{ $doc->name }} - {{ $company['name'] ?? '' }}</title>
-    <link rel="icon" href="/brand/favicon.png" type="image/png">
+    <link rel="icon" href="/brand/favicon.png?v=2" type="image/png">
     <style>
         * { box-sizing: border-box; }
         body { margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; color: #1e293b; }

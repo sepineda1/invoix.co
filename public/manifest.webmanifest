@@ -9,6 +9,6 @@
     "theme_color": "#0284c7",
     "icons": [
         { "src": "/brand/favicon.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "/brand/invoix.png", "sizes": "512x512", "type": "image/png" }
+        { "src": "/brand/logo.png", "sizes": "137x114", "type": "image/png" }
     ]
 }

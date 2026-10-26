@@ -6,7 +6,7 @@
     <title>{{ $title ?? 'API de INVOIX INC · Documentación' }}</title>
     <meta name="description" content="{{ $description ?? 'Documentación de la API REST de INVOIX INC: terceros, productos, facturas electrónicas, notas, compras, recibos, comprobantes contables, reportes y webhooks.' }}">
     @isset($canonical)<link rel="canonical" href="{{ $canonical }}">@endisset
-    <link rel="icon" href="/brand/favicon.png" type="image/png">
+    <link rel="icon" href="/brand/favicon.png?v=2" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -31,7 +31,7 @@
 </head>
 <body>
 <header class="docs-bar">
-    <a href="{{ $home }}" style="padding:0"><img src="/brand/invoix.png" alt="invoix.co"></a>
+    <a href="{{ $home }}" style="padding:0"><img src="/brand/logo.png" alt="invoix.co"></a>
     <span class="sep"></span>
     <span class="title">API</span>
     <span class="version">v1</span>
