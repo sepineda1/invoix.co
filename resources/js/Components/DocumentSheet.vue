@@ -31,7 +31,7 @@ const head = p ? {
 const roleLabel = (i) => (i.role === 'mandante' ? 'Mandante' : (i.role === 'mandatario' ? 'Mandatario' : ''));
 const software = d.source === 'siigo'
     ? 'Fabricante Software y Proveedor tecnológico: Siigo SAS - NIT 830.048.145-8, Nombre Software: Siigo Nube. Firma electrónica: ver en el XML'
-    : `Software propio: OYARCEGROUP INC · Fabricante del software: ${c.name ?? ''} - NIT ${nit(c.nit_number, c.dv)} · Firma electrónica: ver en el XML`;
+    : `Software propio: INVOIX INC · Fabricante del software: ${c.name ?? ''} - NIT ${nit(c.nit_number, c.dv)} · Firma electrónica: ver en el XML`;
 
 onMounted(async () => {
     if (d.dian?.qr) qr.value = await QRCode.toDataURL(d.dian.qr, { margin: 0, width: 140 });

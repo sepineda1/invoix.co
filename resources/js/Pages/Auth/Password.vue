@@ -10,7 +10,7 @@ const submit = () => (props.mode === 'request' ? form.post('/recuperar-contrasen
 <template>
     <Head :title="mode === 'request' ? 'Recuperar contraseña' : 'Nueva contraseña'" />
     <div class="flex min-h-screen flex-col items-center justify-center bg-[#f3f6f9]">
-        <img src="/brand/oyarcegroup-dark.png" alt="OYARCEGROUP INC" class="mb-6 w-[260px]" />
+        <img src="/brand/invoix.png" alt="invoix.co" class="mb-6 w-[260px]" />
         <form class="s-card w-[390px] max-w-[calc(100vw-24px)] px-[30px] py-[28px] shadow-[0_2px_10px_rgba(0,0,0,.08)]" @submit.prevent="submit">
             <h1 class="text-[22px] font-bold text-[#34495e]">{{ mode === 'request' ? 'Recuperar contraseña' : 'Nueva contraseña' }}</h1>
             <p class="mb-[18px] mt-1 text-[13px] text-[#34495e]">

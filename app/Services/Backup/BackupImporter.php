@@ -29,7 +29,7 @@ class BackupImporter
         $manifest = json_decode((string) $zip->getFromName('manifest.json'), true);
         $zip->close();
         if (! is_array($manifest) || ! in_array($manifest['app'] ?? null, ['nubicta', 'friigo'], true)) {
-            throw new RuntimeException('La contraseña no es correcta o el archivo no es un respaldo de OYARCEGROUP INC.');
+            throw new RuntimeException('La contraseña no es correcta o el archivo no es un respaldo de INVOIX INC.');
         }
         if ((int) ($manifest['format'] ?? 0) > (int) config('backup.format')) {
             throw new RuntimeException('El respaldo es de una versión más nueva. Actualiza este sistema antes de restaurarlo.');

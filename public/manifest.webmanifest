@@ -1,7 +1,7 @@
 {
-    "name": "OYARCEGROUP INC",
-    "short_name": "OYARCEGROUP",
-    "description": "ERP de OYARCEGROUP INC",
+    "name": "INVOIX INC",
+    "short_name": "INVOIX",
+    "description": "ERP de INVOIX INC",
     "lang": "es-CO",
     "start_url": "/",
     "display": "standalone",
@@ -9,6 +9,6 @@
     "theme_color": "#0284c7",
     "icons": [
         { "src": "/brand/favicon.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "/brand/oyarcegroup.png", "sizes": "512x512", "type": "image/png" }
+        { "src": "/brand/invoix.png", "sizes": "512x512", "type": "image/png" }
     ]
 }

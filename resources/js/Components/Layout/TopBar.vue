@@ -131,7 +131,7 @@ function logout() {
             <Icon icon="bars" />
         </button>
         <Link href="/" class="mr-3 flex shrink-0 items-center md:mr-[36px]">
-            <img src="/brand/oyarcegroup-mark-dark.png" alt="OYARCEGROUP INC" class="h-[42px] w-auto max-w-[220px] object-contain object-left" />
+            <img src="/brand/invoix.png" alt="invoix.co" class="h-[42px] w-auto max-w-[220px] object-contain object-left" />
         </Link>
         <span class="hidden truncate text-[15px] font-semibold sm:inline">{{ user?.name }}</span>
 
