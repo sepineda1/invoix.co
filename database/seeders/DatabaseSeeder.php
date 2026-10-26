@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
 
         $email = env('ERP_ADMIN_EMAIL', 'admin@example.com');
         if (! User::where('email', $email)->exists()) {
-            $password = Str::password(14, symbols: false);
+            $password = env('ERP_ADMIN_PASSWORD');
+            if (! is_string($password) || $password === '') {
+                $password = Str::password(14, symbols: false);
+                $this->command?->warn("Usuario administrador: $email / $password");
+            }
+
             $user = User::create([
                 'company_id' => $company->id,
                 'name' => env('ERP_ADMIN_NAME', 'Administrador'),
@@ -29,7 +34,6 @@ class DatabaseSeeder extends Seeder
                 'active' => true,
             ]);
             $user->assignRole('Administrador');
-            $this->command->warn("Usuario administrador: $email / $password");
         }
 
         if (! \App\Models\Account::withoutGlobalScopes()->where('company_id', $company->id)->exists()) {
